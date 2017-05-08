@@ -1,3 +1,4 @@
+var weatherData;
 if (navigator.geolocation) {
 
   navigator.geolocation.getCurrentPosition(success, fail);
@@ -24,7 +25,10 @@ function startRequest(lon, lat) {
 
   return ajaxRequest(endpoint)
     .then(function(val){
-      console.log(val);
+      weatherData = val;
+      displayLocation(weatherData.location)
+      displayForecastF(weatherData.current, val.forecast)
+      // displaySevenDayForecast(val.forecast)
     })
     .catch(function(err){
       console.log(err);
@@ -47,4 +51,22 @@ function ajaxRequest(url) {
     }
     xhr.send();
   } );
+}
+
+function displayLocation(locationObj = {}) {
+  var locationEl = document.querySelector('#location');
+  var city = locationObj.name;
+  var region = locationObj.region;
+  return locationEl.textContent = `${city}, ${region}`
+}
+
+function displayForecastF(currentObj = {}, forecastObj = {}) {
+  var tempDisplayEl = document.querySelector('#temp-display');
+  var currentTemp = currentObj.temp_f;
+  var maxTemp = forecastObj.forecastday[0].day.maxtemp_f;
+  var minTemp = forecastObj.forecastday[0].day.mintemp_f;
+  return tempDisplayEl.innerHTML = `
+    ${currentTemp}&degF <br>
+    ${minTemp}&degF / ${maxTemp}&degF
+  `
 }
