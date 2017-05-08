@@ -26,8 +26,12 @@ function startRequest(lon, lat) {
   return ajaxRequest(endpoint)
     .then(function(val){
       weatherData = val;
-      displayLocation(weatherData.location)
-      displayForecastF(weatherData.current, val.forecast)
+      displayLocation(weatherData.location);
+      displayForecastF(
+        weatherData.current.temp_f,
+        weatherData.forecast.forecastday[0].day.mintemp_f,
+        weatherData.forecast.forecastday[0].day.maxtemp_f,
+      );
       // displaySevenDayForecast(val.forecast)
     })
     .catch(function(err){
@@ -60,13 +64,40 @@ function displayLocation(locationObj = {}) {
   return locationEl.textContent = `${city}, ${region}`
 }
 
-function displayForecastF(currentObj = {}, forecastObj = {}) {
-  var tempDisplayEl = document.querySelector('#temp-display');
-  var currentTemp = currentObj.temp_f;
-  var maxTemp = forecastObj.forecastday[0].day.maxtemp_f;
-  var minTemp = forecastObj.forecastday[0].day.mintemp_f;
+function displayForecastF(current, min, max) {
   return tempDisplayEl.innerHTML = `
-    ${currentTemp}&degF <br>
-    ${minTemp}&degF / ${maxTemp}&degF
+    ${current}&degF
+    ${min}&degF / ${max}&degF
   `
+}
+
+function displayForecastC(current, min, max) {
+  return tempDisplayEl.innerHTML = `
+    ${current}&degC
+    ${min}&degC / ${max}&degC
+  `
+}
+
+var tempDisplayEl = document.querySelector('#temp-display');
+var unitToggleEl = document.querySelector('#unit-toggle');
+unitToggleEl.addEventListener('click', toggleUnit);
+
+var isCel = false;
+function toggleUnit() {
+  if (isCel) {
+    displayForecastF(
+      weatherData.current.temp_f,
+      weatherData.forecast.forecastday[0].day.mintemp_f,
+      weatherData.forecast.forecastday[0].day.maxtemp_f,
+    );
+    unitToggleEl.innerHTML = '&degC';
+  } else {
+    displayForecastF(
+      weatherData.current.temp_c,
+      weatherData.forecast.forecastday[0].day.mintemp_c,
+      weatherData.forecast.forecastday[0].day.maxtemp_c,
+    );
+    unitToggleEl.innerHTML = '&degF';
+  }
+  return isCel = !isCel;
 }
