@@ -1,4 +1,16 @@
+"use strict"
+
 var weatherData;
+
+var conditionAndDate
+var tempDisplayEl = document.querySelector('#temp-display');
+var weatherIconImg = document.querySelector('.weather-icon');
+var dateEl = document.querySelector('#date');
+var dayEl = document.querySelector('#day');
+var unitToggleBtn = document.querySelector('#unit-toggle');
+
+unitToggleBtn.addEventListener('click', toggleUnit);
+
 if (navigator.geolocation) {
 
   navigator.geolocation.getCurrentPosition(success, fail);
@@ -78,11 +90,6 @@ function displayForecastC(current, min, max) {
   `
 }
 
-var tempDisplayEl = document.querySelector('#temp-display');
-var weatherIconEl = document.querySelector('.weather-icon');
-var unitToggleEl = document.querySelector('#unit-toggle');
-unitToggleEl.addEventListener('click', toggleUnit);
-
 var isCel = false;
 function toggleUnit() {
   if (isCel) {
@@ -91,19 +98,31 @@ function toggleUnit() {
       weatherData.forecast.forecastday[0].day.mintemp_f,
       weatherData.forecast.forecastday[0].day.maxtemp_f,
     );
-    unitToggleEl.innerHTML = '&degC';
+    unitToggleBtn.innerHTML = '&degC';
   } else {
     displayForecastF(
       weatherData.current.temp_c,
       weatherData.forecast.forecastday[0].day.mintemp_c,
       weatherData.forecast.forecastday[0].day.maxtemp_c,
     );
-    unitToggleEl.innerHTML = '&degF';
+    unitToggleBtn.innerHTML = '&degF';
   }
   return isCel = !isCel;
 }
 
 function displayImg(img) {
   var imgPath = img.replace('//cdn.apixu.com/weather', '');
-  return weatherIconEl.setAttribute('src', `img${imgPath}`);
+  return weatherIconImg.setAttribute('src', `img${imgPath}`);
+}
+
+function displayDate() {
+  var months = [ 'January', 'Feburary', 'March', 'April', 'May','June', 'July', 'August', 'September', 'October', 'November', 'December'
+  ];
+  var days = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',  'Friday', 'Saturday' ];
+
+  var currentDate = new Date();
+
+  dateEl.innerHTML = `${months[currentDate.getMonth()]} ${currentDate.getUTCDate()}`;
+
+  dayEl.innerHTML = `${days[currentDate.getDay()]}`;
 }
