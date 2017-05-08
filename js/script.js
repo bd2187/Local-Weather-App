@@ -32,7 +32,7 @@ function startRequest(lon, lat) {
         weatherData.forecast.forecastday[0].day.mintemp_f,
         weatherData.forecast.forecastday[0].day.maxtemp_f,
       );
-      // displaySevenDayForecast(val.forecast)
+      displayImg(weatherData.current.condition.icon);
     })
     .catch(function(err){
       console.log(err);
@@ -66,19 +66,20 @@ function displayLocation(locationObj = {}) {
 
 function displayForecastF(current, min, max) {
   return tempDisplayEl.innerHTML = `
-    ${current}&degF
-    ${min}&degF / ${max}&degF
+    ${parseInt(current)}&degF <br>
+    ${parseInt(min)}&degF / ${parseInt(max)}&degF
   `
 }
 
 function displayForecastC(current, min, max) {
   return tempDisplayEl.innerHTML = `
-    ${current}&degC
-    ${min}&degC / ${max}&degC
+    ${parseInt(current)}&degC <br>
+    ${parseInt(min)}&degC / ${parseInt(max)}&degC
   `
 }
 
 var tempDisplayEl = document.querySelector('#temp-display');
+var weatherIconEl = document.querySelector('.weather-icon');
 var unitToggleEl = document.querySelector('#unit-toggle');
 unitToggleEl.addEventListener('click', toggleUnit);
 
@@ -100,4 +101,9 @@ function toggleUnit() {
     unitToggleEl.innerHTML = '&degF';
   }
   return isCel = !isCel;
+}
+
+function displayImg(img) {
+  var imgPath = img.replace('//cdn.apixu.com/weather', '');
+  return weatherIconEl.setAttribute('src', `img${imgPath}`);
 }
