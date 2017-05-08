@@ -126,7 +126,7 @@ var mod = ( function(){
   }
 
   return {
-    converte: function() {
+    convert: function() {
       return unitToggleBtn.addEventListener('click', toggleUnit);
     },
     locate: function() {
