@@ -28,7 +28,7 @@ var mod = ( function(){
   }
 
   function startRequest(lon, lat) {
-    var endpoint = `https://api.apixu.com/v1/forecast.json?key=82c329cc3bd840c9af4214023170305&q=${lat},${lon}&days=7`;
+    var endpoint = `https://api.apixu.com/v1/forecast.json?key=a2a31a32926644e8b7052519170905&q=${lat},${lon}&days=7`; // returns error 403
 
     return ajaxRequest(endpoint)
       .then(function(val){
@@ -42,7 +42,8 @@ var mod = ( function(){
         displayImg(weatherData.current.condition.icon);
       })
       .then( function(){
-        return displayDate();
+        displayDate();
+        unitToggleBtn.style.display = "block";
       } )
       .catch(function(err){
         console.log(err);
@@ -71,7 +72,7 @@ var mod = ( function(){
     var locationEl = document.querySelector('#location');
     var city = locationObj.name;
     var region = locationObj.region;
-    return locationEl.textContent = `${city}, ${region}`
+    return locationEl.textContent = `${city}, ${region}`;
   }
 
   function displayForecastF(current, min, max) {
@@ -100,7 +101,8 @@ var mod = ( function(){
 
     var currentDate = new Date();
 
-    dateEl.innerHTML = `${months[currentDate.getMonth()]} ${currentDate.getUTCDate()}`;
+    dateEl.innerHTML = `${months[currentDate.getMonth()]}
+    ${currentDate.getUTCDate()}`;
 
     dayEl.innerHTML = `${days[currentDate.getDay()]}`;
   }
@@ -134,7 +136,5 @@ var mod = ( function(){
     }
   }
 } )();
-
-
 mod.convert();
 mod.locate();
