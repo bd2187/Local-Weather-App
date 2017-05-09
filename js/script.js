@@ -1,4 +1,5 @@
 "use strict"
+
 var mod = ( function(){
   var weatherData;
 
@@ -28,7 +29,7 @@ var mod = ( function(){
   }
 
   function startRequest(lon, lat) {
-    var endpoint = `https://api.apixu.com/v1/forecast.json?key=a2a31a32926644e8b7052519170905&q=${lat},${lon}&days=7`; // returns error 403
+    var endpoint = `https://api.apixu.com/v1/forecast.json?key=a2a31a32926644e8b7052519170905&q=${lat},${lon}&days=7`;
 
     return ajaxRequest(endpoint)
       .then(function(val){
@@ -50,6 +51,7 @@ var mod = ( function(){
       });
   }
 
+  // Promise utility
   function ajaxRequest(url) {
     return new Promise( function(resolve, reject){
       var xhr = new XMLHttpRequest();
@@ -117,7 +119,7 @@ var mod = ( function(){
       );
       unitToggleBtn.innerHTML = '&degC';
     } else {
-      displayForecastF(
+      displayForecastC(
         weatherData.current.temp_c,
         weatherData.forecast.forecastday[0].day.mintemp_c,
         weatherData.forecast.forecastday[0].day.maxtemp_c,
@@ -128,13 +130,9 @@ var mod = ( function(){
   }
 
   return {
-    convert: function() {
-      return unitToggleBtn.addEventListener('click', toggleUnit);
-    },
-    locate: function() {
-      return checkGeolocation();
-    }
+    checkGeolocation: checkGeolocation,
+    unitToggleBtn: unitToggleBtn.addEventListener('click', toggleUnit)
   }
 } )();
-mod.convert();
-mod.locate();
+mod.unitToggleBtn;
+mod.checkGeolocation();
