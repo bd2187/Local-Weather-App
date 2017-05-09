@@ -3,52 +3,41 @@
 var mod = ( function(){
   var weatherData;
 
+  var loaderEl        = document.querySelector('.loader');
   var tempDisplayEl   = document.querySelector('#temp-display');
   var weatherIconImg  = document.querySelector('.weather-icon');
   var dateEl          = document.querySelector('#date');
   var dayEl           = document.querySelector('#day');
   var unitToggleBtn   = document.querySelector('#unit-toggle');
 
-  function checkGeolocation() {
-    if (navigator.geolocation) {
-      return navigator.geolocation.getCurrentPosition(success, fail);
-    } else {
-      return console.log('geolocation unavailable');
-    }
+  startRequest();
 
-    function success(position) {
-      var lon = position.coords.longitude;
-      var lat = position.coords.latitude;
-      return startRequest(lon, lat);
-    }
+  function startRequest() {
+    var location = 'http://ip-api.com/json/';
+    var endpoint;
 
-    function fail(msg) {
-      console.log(msg.message);
-      console.log('err');
-    }
-  }
-
-  function startRequest(lon, lat) {
-    var endpoint = `https://api.apixu.com/v1/forecast.json?key=a2a31a32926644e8b7052519170905&q=${lat},${lon}&days=7`;
-
-    return ajaxRequest(endpoint)
-      .then(function(val){
-        weatherData = val;
-        displayLocation(weatherData.location);
-        displayForecastF(
-          weatherData.current.temp_f,
-          weatherData.forecast.forecastday[0].day.mintemp_f,
-          weatherData.forecast.forecastday[0].day.maxtemp_f,
-        );
-        displayImg(weatherData.current.condition.icon);
-      })
-      .then( function(){
-        displayDate();
-        unitToggleBtn.style.display = "block";
+    return ajaxRequest(location) //request data from location api
+      .then( function(val){
+        endpoint = `https://api.apixu.com/v1/forecast.json?key=a2a31a32926644e8b7052519170905&q=${val.lat},${val.lon}&days=7`
+        return ajaxRequest(endpoint) // after location, request weather
       } )
-      .catch(function(err){
-        console.log(err);
-      });
+      .then(function(val){
+          weatherData = val;
+          displayLocation(weatherData.location);
+          displayForecastF(
+            weatherData.current.temp_f,
+            weatherData.forecast.forecastday[0].day.mintemp_f,
+            weatherData.forecast.forecastday[0].day.maxtemp_f,
+          );
+          displayImg(weatherData.current.condition.icon);
+        })
+        .then( function(){
+          displayDate();
+          unitToggleBtn.style.display = "block";
+        } )
+        .catch(function(err){
+          console.log(err);
+        });
   }
 
   // Promise utility
@@ -130,9 +119,10 @@ var mod = ( function(){
   }
 
   return {
-    checkGeolocation: checkGeolocation,
+    startRequest: startRequest,
     unitToggleBtn: unitToggleBtn.addEventListener('click', toggleUnit)
   }
-} )();
+})();
+
+mod.startRequest();
 mod.unitToggleBtn;
-mod.checkGeolocation();
