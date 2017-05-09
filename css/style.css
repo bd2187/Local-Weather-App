@@ -1,9 +1,55 @@
 * {
   box-sizing: border-box;
-  color:red
+}
+
+body {
+  background: firebrick;
+  width: 100%;
+  /*padding: 1em;*/
+}
+
+section,
+footer {
+  text-align: center;
+}
+
+h1, p,
+button {
+  margin: 0;
+}
+
+.container {
+  background: gold;
+  margin: 0 auto;
+  /*text-align: center;*/
+  width: 95%;
+  padding: 1em;
+  height: 40em;
+}
+
+.upper-box {
+  background: blue;
+  width: 50%;
+  float:left;
+}
+
+#unit-toggle {
+  display: none;
+  float: right;
+}
+
+.weather {
+  clear: both;
+  background: green;
+}
+
+.weather-icon {
+  background: red;
 }
 
 
-#unit-toggle {
-  display:none;
+.clearfix::after {
+  content: " ";
+  display: table;
+  clear: both;
 }

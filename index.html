@@ -8,13 +8,28 @@
     <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
-    <div class="container">
-      <p id="day"></p>
-      <p id="date"></p>
-      <p id="temp-display"></p>
-      <img class="weather-icon"></img>
-      <button id="unit-toggle">&degC</button>
-      <h1 id="location"></h1>
+    <div class="container clearfix">
+      <header>
+        <div class="upper-box"> <!-- .upper-box -->
+          <p id="day"></p>
+          <p id="date"></p>
+        </div> <!-- /.upper-box -->
+
+        <div class="upper-box clearfix"> <!-- .upper-box -->
+          <button id="unit-toggle">&degC</button>
+        </div> <!-- /.upper-box-->
+      </header>
+
+      <section>
+        <div class="weather clearfix"> <!-- .weather-->
+          <img class="weather-icon"></img>
+          <p id="temp-display"></p>
+        </div> <!-- /.weather -->
+      </section>
+
+      <footer>
+        <h1 id="location"></h1>
+      </footer>
     </div> <!-- /.container-->
 
     <script src="js/script.js"></script>
