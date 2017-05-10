@@ -4,7 +4,6 @@ var mod = ( function(){
   var weatherData;
 
   var loaderEl          = document.querySelector('.loader');
-  // var tempDisplayEl   = document.querySelector('#temp-display');
   var currentDisplayEl  = document.querySelector('#currentTemp-display');
   var minMaxDisplayEl   = document.querySelector('#minMaxTemp-display');
   var weatherIconImg    = document.querySelector('.weather-icon');
@@ -25,6 +24,7 @@ var mod = ( function(){
       } )
       .then(function(val){
           weatherData = val;
+          console.log(val);
           displayLocation(weatherData.location);
           displayForecastF(
             weatherData.current.temp_f,
@@ -32,6 +32,7 @@ var mod = ( function(){
             weatherData.forecast.forecastday[0].day.maxtemp_f,
           );
           displayImg(weatherData.current.condition.icon);
+          changeBG(weatherData.current.condition.icon);
         })
         .then( function(){
           displayDate();
@@ -83,6 +84,17 @@ var mod = ( function(){
     return weatherIconImg.setAttribute('src', `img${imgPath}`);
   }
 
+  function changeBG(condition) {
+    var containerEl = document.querySelector('.container');
+    if ( condition.includes('day') ) {
+      return containerEl.classList.add('dayBG');
+    } else if ( condition.includes('night') ){
+      return containerEl.classList.add('nightBG');
+    } else {
+      return containerEl.classList.add('defaultBG');
+    }
+  }
+
   function displayDate() {
     var months = [ 'January', 'Feburary', 'March', 'April', 'May','June', 'July', 'August', 'September', 'October', 'November', 'December'
     ];
@@ -118,7 +130,7 @@ var mod = ( function(){
 
   return {
     startRequest: startRequest,
-    unitToggleBtn: unitToggleBtn.addEventListener('click', toggleUnit)
+    unitToggleBtn: unitToggleBtn.addEventListener('click', toggleUnit),
   }
 })();
 

@@ -3,9 +3,9 @@
 }
 
 body {
-  background: firebrick;
+  background: #EDFFF8;
   width: 100%;
-  /*padding: 1em;*/
+  padding: 1em;
 
 }
 
@@ -20,14 +20,15 @@ button {
 }
 
 .container {
-  background: gold;
   margin: 0 auto;
-  /*text-align: center;*/
+  height: 95vh;
   width: 95%;
   padding: 1em;
-  height: 40em;
+  /*height: 40em;*/
 
   position: relative;
+  color: #EDFFF8;
+  font-family: 'Noto Sans', sans-serif;
 }
 
 .outer-box {
@@ -58,18 +59,27 @@ button {
 
 .weather {
   clear: both;
-  background: green;
-  font-size: 1.6em;
+  /*background: green;*/
 
   position: absolute;
   top: 50%;
   left: 0;
   right: 0;
   transform: translateY(-50%);
- }
+}
+
+#currentTemp-display {
+  font-size: 5em;
+  /*background: blue;*/
+}
+
+#minMaxTemp-display {
+  font-size: 1.2em;
+}
 
 .weather-icon {
-  background: red;
+  /*background: red;*/
+  margin-bottom: -10px;
 }
 
 #location {
@@ -84,4 +94,18 @@ button {
   content: " ";
   display: table;
   clear: both;
+}
+
+
+/* BG classes toggled by CSS */
+.dayBG {
+  background: linear-gradient(#354DA6, #C28822);
+}
+
+.nightBG {
+  background: linear-gradient(#0E1E7F, #5E677F);
+}
+
+.defaultBG {
+  background: linear-gradient(#354DA6, #C28822);
 }
