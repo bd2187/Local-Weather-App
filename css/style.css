@@ -81,7 +81,7 @@ button {
 
 .weather-icon {
   /*background: red;*/
-  margin-bottom: -10px;
+  margin-bottom: -30px;
 }
 
 #location {
@@ -110,4 +110,23 @@ button {
 
 .defaultBG {
   background: linear-gradient(#354DA6, #C28822);
+}
+
+
+@media screen and (min-width: 800px) {
+
+  .weather-icon {
+    /*background: red;*/
+    margin-bottom: -30px;
+    height: 5em;
+    width: 5em;
+  }
+
+  #currentTemp-display {
+    font-size: 7em;
+  }
+
+  #minMaxTemp-display {
+    font-size: 2em;
+  }
 }
