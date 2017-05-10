@@ -10,28 +10,30 @@
   <body>
     <div class="container clearfix">
       <header>
-        <div class="upper-box"> <!-- .upper-box -->
-          <p id="day"></p>
-          <p id="date"></p>
-        </div> <!-- /.upper-box -->
+        <div class="outer-box clearfix"> <!-- outer-box -->
+          <div class="upper-box"> <!-- .upper-box -->
+            <p id="day"></p>
+            <p id="date"></p>
+          </div> <!-- /.upper-box -->
 
-        <div class="upper-box clearfix"> <!-- .upper-box -->
-          <button id="unit-toggle">&degC</button>
-        </div> <!-- /.upper-box-->
+          <div class="upper-box clearfix"> <!-- .upper-box -->
+            <button id="unit-toggle">&degC</button>
+          </div> <!-- /.upper-box-->
+        </div> <!-- /.outer-box -->
       </header>
 
       <section>
         <div class="weather clearfix"> <!-- .weather-->
           <img class="weather-icon"></img>
-          <p id="temp-display"></p>
+          <h1 id="currentTemp-display"></h1>
+          <h1 id="minMaxTemp-display"></h1>
         </div> <!-- /.weather -->
       </section>
 
       <footer>
-        <h1 id="location"></h1>
+        <p id="location"></p>
       </footer>
     </div> <!-- /.container-->
-
     <script src="js/script.js"></script>
   </body>
 </html>

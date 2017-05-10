@@ -6,6 +6,7 @@ body {
   background: firebrick;
   width: 100%;
   /*padding: 1em;*/
+
 }
 
 section,
@@ -25,28 +26,59 @@ button {
   width: 95%;
   padding: 1em;
   height: 40em;
+
+  position: relative;
+}
+
+.outer-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .upper-box {
-  background: blue;
+  /*background: blue;*/
   width: 50%;
   float:left;
 }
 
+#day,
+#date,
+#unit-toggle {
+  font-size: 1.2em;
+}
+
 #unit-toggle {
   display: none;
+  background: none;
+  border: none;
+  outline: none;
   float: right;
 }
 
 .weather {
   clear: both;
   background: green;
-}
+  font-size: 1.6em;
+
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+ }
 
 .weather-icon {
   background: red;
 }
 
+#location {
+  position: absolute;
+  bottom: 1em;
+  left: 0;
+  right: 0;
+  font-size: 1.3em;
+}
 
 .clearfix::after {
   content: " ";

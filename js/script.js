@@ -3,12 +3,14 @@
 var mod = ( function(){
   var weatherData;
 
-  var loaderEl        = document.querySelector('.loader');
-  var tempDisplayEl   = document.querySelector('#temp-display');
-  var weatherIconImg  = document.querySelector('.weather-icon');
-  var dateEl          = document.querySelector('#date');
-  var dayEl           = document.querySelector('#day');
-  var unitToggleBtn   = document.querySelector('#unit-toggle');
+  var loaderEl          = document.querySelector('.loader');
+  // var tempDisplayEl   = document.querySelector('#temp-display');
+  var currentDisplayEl  = document.querySelector('#currentTemp-display');
+  var minMaxDisplayEl   = document.querySelector('#minMaxTemp-display');
+  var weatherIconImg    = document.querySelector('.weather-icon');
+  var dateEl            = document.querySelector('#date');
+  var dayEl             = document.querySelector('#day');
+  var unitToggleBtn     = document.querySelector('#unit-toggle');
 
   startRequest();
 
@@ -67,17 +69,13 @@ var mod = ( function(){
   }
 
   function displayForecastF(current, min, max) {
-    return tempDisplayEl.innerHTML = `
-      ${parseInt(current)}&degF <br>
-      ${parseInt(min)}&degF / ${parseInt(max)}&degF
-    `
+    currentDisplayEl.innerHTML = `${parseInt(current)}&degF`;
+    minMaxDisplayEl.innerHTML = `${parseInt(min)}&degF / ${parseInt(max)}&degF`;
   }
 
   function displayForecastC(current, min, max) {
-    return tempDisplayEl.innerHTML = `
-      ${parseInt(current)}&degC <br>
-      ${parseInt(min)}&degC / ${parseInt(max)}&degC
-    `
+    currentDisplayEl.innerHTML = `${parseInt(current)}&degC`;
+    minMaxDisplayEl.innerHTML = `${parseInt(min)}&degC / ${parseInt(max)}&degC`;
   }
 
   function displayImg(img) {
