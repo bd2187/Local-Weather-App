@@ -85,11 +85,14 @@ var mod = ( function(){
   function changeBG(condition) {
     var containerEl = document.querySelector('.container');
     if ( condition.includes('day') ) {
-      return containerEl.classList.add('dayBG');
+      containerEl.classList.add('dayBG');
+      unitToggleBtn.classList.add('dayBG');
     } else if ( condition.includes('night') ){
-      return containerEl.classList.add('nightBG');
+      containerEl.classList.add('nightBG');
+      unitToggleBtn.classList.add('nightBG');
     } else {
-      return containerEl.classList.add('defaultBG');
+      containerEl.classList.add('dayBG');
+      unitToggleBtn.classList.add('dayBG');
     }
   }
 

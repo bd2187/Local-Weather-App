@@ -53,10 +53,15 @@ button {
 
 #unit-toggle {
   display: none;
-  background: none;
-  border: none;
+  /*background: none;*/
+  border: .5px solid;
+  border-radius: 100%;
+  width: 2.5em;
+  height: 2.5em;
+
   outline: none;
   float: right;
+  text-align: center;
 }
 
 .weather {
@@ -108,12 +113,14 @@ button {
   background: linear-gradient(#0E1E7F, #5E677F);
 }
 
-.defaultBG {
-  background: linear-gradient(#354DA6, #C28822);
-}
-
 
 @media screen and (min-width: 800px) {
+
+  #day,
+  #date,
+  #unit-toggle {
+    font-size: 1.5em;
+  }
 
   .weather-icon {
     /*background: red;*/
@@ -128,5 +135,9 @@ button {
 
   #minMaxTemp-display {
     font-size: 2em;
+  }
+
+  #location {
+    font-size: 1.6em;
   }
 }
