@@ -11,8 +11,6 @@ var mod = ( function(){
   var dayEl             = document.querySelector('#day');
   var unitToggleBtn     = document.querySelector('#unit-toggle');
 
-  startRequest();
-
   function startRequest() {
     var location = 'http://ip-api.com/json/';
     var endpoint;
