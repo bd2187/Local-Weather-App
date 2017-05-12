@@ -68,13 +68,29 @@ var mod = ( function(){
   }
 
   function displayForecastF(current, min, max) {
-    currentDisplayEl.innerHTML = `${parseInt(current)}&degF`;
-    minMaxDisplayEl.innerHTML = `${parseInt(min)}&degF / ${parseInt(max)}&degF`;
+    var currentTemp = parseInt(current);
+    var minTemp = parseInt(min);
+    var maxTemp = (function maxTemp() {
+      // If current temperature > predicted max temperature, maxTemp = current temperature
+      return currentTemp >= parseInt(max) ? currentTemp : parseInt(max)
+    })();
+
+
+    currentDisplayEl.innerHTML = `${currentTemp}&degF`;
+    minMaxDisplayEl.innerHTML = `${minTemp}&degF / ${maxTemp}&degF`;
   }
 
   function displayForecastC(current, min, max) {
-    currentDisplayEl.innerHTML = `${parseInt(current)}&degC`;
-    minMaxDisplayEl.innerHTML = `${parseInt(min)}&degC / ${parseInt(max)}&degC`;
+    var currentTemp = parseInt(current);
+    var minTemp = parseInt(min);
+    var maxTemp = (function maxTemp() {
+      // If current temperature > predicted max temperature, maxTemp = current temperature
+      return currentTemp >= parseInt(max) ? currentTemp : parseInt(max)
+    })();
+
+
+    currentDisplayEl.innerHTML = `${currentTemp}&degC`;
+    minMaxDisplayEl.innerHTML = `${minTemp}&degC / ${maxTemp}&degC`;
   }
 
   function displayImg(img) {
