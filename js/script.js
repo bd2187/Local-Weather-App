@@ -12,7 +12,7 @@ var mod = ( function(){
   var unitToggleBtn     = document.querySelector('#unit-toggle');
 
   function startRequest() {
-    var location = 'http://ip-api.com/json/';
+    var location = 'https://crossorigin.me/http://ip-api.com/json/';
     var endpoint;
 
     return ajaxRequest(location) //request data from location api
