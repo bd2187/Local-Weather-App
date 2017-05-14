@@ -10,16 +10,12 @@ var mod = ( function(){
   var dateEl            = document.querySelector('#date');
   var dayEl             = document.querySelector('#day');
   var unitToggleBtn     = document.querySelector('#unit-toggle');
+  checkGeolocation();
+  function startRequest(lon, lat) {
+    // var location = 'https://crossorigin.me/http://ip-api.com/json/';
+    var endpoint = `https://api.apixu.com/v1/forecast.json?key=a2a31a32926644e8b7052519170905&q=${lat},${lon}&days=7`;
 
-  function startRequest() {
-    var location = 'https://crossorigin.me/http://ip-api.com/json/';
-    var endpoint;
-
-    return ajaxRequest(location) //request data from location api
-      .then( function(val){
-        endpoint = `https://api.apixu.com/v1/forecast.json?key=a2a31a32926644e8b7052519170905&q=${val.lat},${val.lon}&days=7`
-        return ajaxRequest(endpoint) // after location, request weather
-      } )
+    return ajaxRequest(endpoint) //request data from location api
       .then(function(val){
           weatherData = val;
           console.log(val);
@@ -145,11 +141,38 @@ var mod = ( function(){
     return isCel = !isCel;
   }
 
+
+
+
+
+  function checkGeolocation() {
+  if (navigator.geolocation) {
+    return navigator.geolocation.getCurrentPosition(success, fail);
+  } else {
+    return console.log('geolocation unavailable');
+  }
+
+  function success(position) {
+    var lon = position.coords.longitude;
+    var lat = position.coords.latitude;
+    console.log(lon, lat);
+    return startRequest(lon, lat);
+  }
+
+  function fail(msg) {
+    console.log(msg.message);
+    console.log('err');
+  }
+}
+
+
+
+
   return {
     startRequest: startRequest,
     unitToggleBtn: unitToggleBtn.addEventListener('click', toggleUnit),
   }
 })();
 
-mod.startRequest();
+// mod.startRequest();
 mod.unitToggleBtn;
