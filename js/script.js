@@ -10,9 +10,27 @@ var mod = ( function(){
   var dateEl            = document.querySelector('#date');
   var dayEl             = document.querySelector('#day');
   var unitToggleBtn     = document.querySelector('#unit-toggle');
-  checkGeolocation();
+
+  function checkGeolocation() {
+    function success(position) {
+      var lon = position.coords.longitude;
+      var lat = position.coords.latitude;
+      console.log(lon, lat);
+      return startRequest(lon, lat);
+    }
+
+    function fail(msg) {
+      /*  DISPLAY ERROR MESSAGE IN BROWSER VIEWPORT*/
+      console.log(msg.message);
+      console.log('err');
+    }
+
+    return navigator.geolocation
+      ? navigator.geolocation.getCurrentPosition(success, fail)
+      : console.log('geolocation unavailable');
+  }
+
   function startRequest(lon, lat) {
-    // var location = 'https://crossorigin.me/http://ip-api.com/json/';
     var endpoint = `https://api.apixu.com/v1/forecast.json?key=a2a31a32926644e8b7052519170905&q=${lat},${lon}&days=7`;
 
     return ajaxRequest(endpoint) //request data from location api
@@ -141,38 +159,11 @@ var mod = ( function(){
     return isCel = !isCel;
   }
 
-
-
-
-
-  function checkGeolocation() {
-  if (navigator.geolocation) {
-    return navigator.geolocation.getCurrentPosition(success, fail);
-  } else {
-    return console.log('geolocation unavailable');
-  }
-
-  function success(position) {
-    var lon = position.coords.longitude;
-    var lat = position.coords.latitude;
-    console.log(lon, lat);
-    return startRequest(lon, lat);
-  }
-
-  function fail(msg) {
-    console.log(msg.message);
-    console.log('err');
-  }
-}
-
-
-
-
   return {
-    startRequest: startRequest,
+    checkGeolocation: checkGeolocation,
     unitToggleBtn: unitToggleBtn.addEventListener('click', toggleUnit),
   }
 })();
 
-// mod.startRequest();
+mod.checkGeolocation();
 mod.unitToggleBtn;
